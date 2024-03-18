@@ -1,4 +1,6 @@
-import { IsDecimal, IsNotEmpty, IsNumber, IsString, MinLength } from "class-validator";
+import { Type } from "class-transformer";
+import { IsArray, IsDecimal, IsNotEmpty, IsNumber, IsObject, IsString, MinLength, ValidateNested } from "class-validator";
+import { HorasDisponibilidad } from "./horas-disponibilidad.dto";
 
 export class CreateSpecialtyDto {
     @IsString()
@@ -10,8 +12,8 @@ export class CreateSpecialtyDto {
     @IsNotEmpty({message: 'El campo descripcion no puede estar vacío.'})
     descripcion: string
 
-    @IsDecimal()
-    @IsNotEmpty({message: 'El campo descripcion no puede estar vacío.'})
+    @IsNumber()
+    @IsNotEmpty({message: 'El campo costo no puede estar vacío.'})
     costo: number
 
     @IsNumber()
@@ -22,7 +24,9 @@ export class CreateSpecialtyDto {
     @IsNotEmpty({ message: 'El campo disponibilidad dias no puede estar vacío.' })
     disponibilidad_dias: string[];
 
-    @IsString({ each: true })
-    @IsNotEmpty({ message: 'El campo disponibilidad horas no puede estar vacío.' })
-    disponibilidad_horas: string[];
+    @IsArray()
+    @IsObject({ each: true })
+    @ValidateNested({ each: true })
+    @Type(() => HorasDisponibilidad)
+    disponibilidad_horas: [];
 }

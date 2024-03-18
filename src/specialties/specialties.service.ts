@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, Logger, NotFoundException } from '@nestjs/common';
 import { CreateSpecialtyDto } from './dto/create-specialty.dto';
 import { UpdateSpecialtyDto } from './dto/update-specialty.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -25,11 +25,15 @@ export class SpecialtiesService {
   }
 
   findAll() {
-    return `This action returns all specialties`;
+    return this.specialtyRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} specialty`;
+  async findOne(id: number) {
+    const user = await this.specialtyRepository.findOneBy({id});
+    if(!user){
+      throw new NotFoundException(`Persona con id ${id} no encontrado`);
+    }
+    return user;
   }
 
   update(id: number, updateSpecialtyDto: UpdateSpecialtyDto) {
