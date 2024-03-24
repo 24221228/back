@@ -1,3 +1,4 @@
+import { Patient } from 'src/patient/entities/patient.entity'
 import { Person } from 'src/persons/entities/person.entity'
 import {
     BeforeInsert,
@@ -49,4 +50,15 @@ export class User {
         (person) => person.user
     )
     person: Person
+
+    /*@OneToMany(
+        () => Patient,
+        (patient) => patient.user
+    )
+    patient: Patient;*/
+
+    @OneToMany(
+        () => Patient,
+        (patient) => patient.user)
+    patient: Patient;
 }

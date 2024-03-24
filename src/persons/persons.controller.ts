@@ -12,7 +12,7 @@ export class PersonsController {
   constructor(private readonly personsService: PersonsService) {}
 
   @Post()
-  @Auth(ValidRoles.especialista, ValidRoles.paciente, ValidRoles.admin)
+  //@Auth(ValidRoles.especialista, ValidRoles.paciente, ValidRoles.admin)
   create(
     @Body() createPersonDto: CreatePersonDto,
     @GetUser() user: User
