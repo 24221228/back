@@ -11,6 +11,9 @@ import { UsersModule } from 'src/users/users.module';
   imports:[
     TypeOrmModule.forFeature([Person]),
     UsersModule
+  ],
+  exports: [
+    TypeOrmModule.forFeature([Person])
   ]
 })
 export class PersonsModule {}

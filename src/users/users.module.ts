@@ -10,8 +10,6 @@ import { User } from './entities/user.entity';
 import { JwtStrategy } from './strategies/jwt.strategy';
 import { Person } from 'src/persons/entities/person.entity';
 
-
-
 @Module({
   controllers: [UsersController],
   providers: [UsersService, JwtStrategy],
@@ -36,7 +34,8 @@ import { Person } from 'src/persons/entities/person.entity';
     TypeOrmModule,
     JwtStrategy,
     PassportModule,
-    JwtModule
+    JwtModule,
+    UsersService
   ]
 })
 export class UsersModule {}

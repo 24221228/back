@@ -1,6 +1,14 @@
-import { IsNumber, IsString } from "class-validator"
+import { ArrayNotEmpty, IsArray, IsEmail, IsNumber, IsString } from "class-validator"
 
 export class CreateSpecialistDto {
+    @IsString()
+    @IsEmail()
+    correo_electronico: string;
+
+    @IsArray()
+    @ArrayNotEmpty()
+    roles: string[];
+
     @IsString()
     nombres: string
 
@@ -8,17 +16,26 @@ export class CreateSpecialistDto {
     apellidos: string
 
     @IsString()
+    genero: string
+
+    @IsString()
     documento_tipo: string
 
     @IsNumber()
     documento_numero: number
 
-    @IsNumber()
-    telefono: number
+    @IsString()
+    fecha_nacimiento: string
 
     @IsString()
-    direccion: string
+    direccion_completa: string
+
+    @IsString()
+    ciudad: string
+
+    @IsString()
+    pais: string
 
     @IsNumber()
-    intervalo_tiempo: number
+    numero_telefono: number
 }

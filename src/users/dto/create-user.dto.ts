@@ -1,4 +1,4 @@
-import { IsString, IsEmail, MinLength, Matches } from "class-validator";
+import { IsString, IsEmail, MinLength, Matches, IsArray, ArrayNotEmpty, IsOptional } from "class-validator";
 
 export class CreateUserDto {
     @IsString()
@@ -12,4 +12,9 @@ export class CreateUserDto {
         message: 'La contraseña debe tener una letra Mayúscula, Minúscula y un número'
     })
     contraseña: string;
+
+    @IsArray()
+    @ArrayNotEmpty()
+    @IsOptional()
+    roles?: string[] = ['paciente'];
 }

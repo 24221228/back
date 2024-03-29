@@ -51,12 +51,6 @@ export class User {
     )
     person: Person
 
-    /*@OneToMany(
-        () => Patient,
-        (patient) => patient.user
-    )
-    patient: Patient;*/
-
     @OneToMany(
         () => Patient,
         (patient) => patient.user)
