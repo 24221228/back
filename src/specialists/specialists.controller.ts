@@ -20,10 +20,11 @@ export class SpecialistsController {
 
   @Post()
   async create(@Body() createSpecialistDto: CreateSpecialistDto) {
+    let contraseña = `${createSpecialistDto.apellidos.split(' ')[0].charAt(0).toUpperCase()}${createSpecialistDto.nombres}${24}$`;
     let user = {
       correo_electronico: createSpecialistDto.correo_electronico,
       roles: createSpecialistDto.roles,
-      contraseña: bcrypt.hashSync(createSpecialistDto.documento_numero.toString(), 10)
+      contraseña: bcrypt.hashSync(contraseña, 10)
     };
     const savedUser = await this.userRepository.save(user);
     const person = this.personRepository.create({

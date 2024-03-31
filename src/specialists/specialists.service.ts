@@ -1,16 +1,10 @@
-import { Injectable } from '@nestjs/common';
-import { CreateSpecialistDto } from './dto/create-specialist.dto';
+import { BadRequestException, Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
 import { UpdateSpecialistDto } from './dto/update-specialist.dto';
 
 @Injectable()
 export class SpecialistsService {
-  create(createSpecialistDto: CreateSpecialistDto) {
-    return 'This action adds a new specialist';
-  }
-
-  findAll() {
-    return `This action returns all specialists`;
-  }
+  private readonly logger = new Logger('SpecialistsService');
+  constructor(){}
 
   findOne(id: number) {
     return `This action returns a #${id} specialist`;
@@ -22,5 +16,13 @@ export class SpecialistsService {
 
   remove(id: number) {
     return `This action removes a #${id} specialist`;
+  }
+
+  private handleDBExceptions(error: any){
+    if(error.code === '23505'){
+      throw new BadRequestException(error.detail);
+    }
+    this.logger.error(error);
+    throw new InternalServerErrorException('Unexpected error, check server logs')
   }
 }
