@@ -31,7 +31,8 @@ import { PatientModule } from './patient/patient.module';
     SpecialtiesModule,
     CampusModule,
     UsersModule,
-    PatientModule
+    PatientModule,
+    CampusModule
   ]
 })
 export class AppModule {}
