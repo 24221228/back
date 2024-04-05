@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable, InternalServerErrorException, Logger } from '@nestjs/common';
 import { CreateCampusDto } from './dto/create-campus.dto';
 import { UpdateCampusDto } from './dto/update-campus.dto';
 import { InjectRepository } from '@nestjs/typeorm';
@@ -7,16 +7,18 @@ import { Repository } from 'typeorm';
 
 @Injectable()
 export class CampusService {
+  private readonly logger = new Logger('CampusService');
   constructor(
     @InjectRepository(Campus)
     private readonly campusRepository: Repository<Campus>
   ){}
 
   async create(createCampusDto: CreateCampusDto) {
-    const savedCampus = this.campusRepository.create(createCampusDto);
-    await this.campusRepository.save(savedCampus);
-    return {
-      savedCampus
+    try{
+      const savedPerson = await this.campusRepository.save(createCampusDto);
+      return {savedPerson}
+    }catch(error){
+      this.handleDBExceptions(error);
     }
   }
 
@@ -34,5 +36,13 @@ export class CampusService {
 
   remove(id: number) {
     return `This action removes a #${id} campus`;
+  }
+
+  private handleDBExceptions(error: any){
+    if(error.code === '23505'){
+      throw new BadRequestException(error.detail);
+    }
+    this.logger.error(error);
+    throw new InternalServerErrorException('Unexpected error, check server logs')
   }
 }

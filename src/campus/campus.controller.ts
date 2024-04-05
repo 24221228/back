@@ -9,6 +9,8 @@ export class CampusController {
 
   @Post()
   create(@Body() createCampusDto: CreateCampusDto) {
+    console.log("campus -> ", createCampusDto);
+    return "ok"
     return this.campusService.create(createCampusDto);
   }
 
