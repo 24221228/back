@@ -23,7 +23,7 @@ export class SpecialistsController {
     let user = {
       correo_electronico: createSpecialistDto.correo_electronico,
       roles: createSpecialistDto.roles,
-      contraseña: bcrypt.hashSync(createSpecialistDto.documento_numero.toString(), 10)
+      contraseña: bcrypt.hashSync(`${createSpecialistDto.nombres.charAt(0)}${createSpecialistDto.apellidos}24$`, 10)
     };
     const savedUser = await this.userRepository.save(user);
     const person = this.personRepository.create({

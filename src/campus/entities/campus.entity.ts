@@ -1,5 +1,9 @@
-import { Column, PrimaryGeneratedColumn } from "typeorm";
+import {
+    Column,
+    Entity,
+    PrimaryGeneratedColumn } from "typeorm";
 
+@Entity()
 export class Campus {
     @PrimaryGeneratedColumn('increment')
     id: number
@@ -7,5 +11,17 @@ export class Campus {
     @Column('text',{
         unique: true
     })
-    nombre: string
+    sede: string
+
+    @Column('text')
+    departamento: string
+
+    @Column('text')
+    provincia: string
+
+    @Column('text')
+    distrito: string
+
+    @Column('text')
+    direccion: string
 }
