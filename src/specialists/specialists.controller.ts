@@ -20,6 +20,7 @@ export class SpecialistsController {
 
   @Post()
   async create(@Body() createSpecialistDto: CreateSpecialistDto) {
+    let contraseña = `${createSpecialistDto.apellidos.split(' ')[0].charAt(0).toUpperCase()}${createSpecialistDto.nombres}${24}$`;
     let user = {
       correo_electronico: createSpecialistDto.correo_electronico,
       roles: createSpecialistDto.roles,
